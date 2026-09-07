@@ -1,0 +1,15 @@
+                    USER
+                     ↓
+                    LLM
+                     ↓
+             ┌───────┴────────┐
+             ↓                ↓
+       Question météo    Autre question
+             ↓                ↓
+        Weather Tools       LLM
+             ↓                ↓
+        OpenWeather       Réponse
+             ↓
+            LLM
+             ↓
+          Réponse
