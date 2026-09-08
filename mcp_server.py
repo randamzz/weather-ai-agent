@@ -1,4 +1,3 @@
-#V3 Start
 
 from mcp.server.mcpserver import MCPServer
 
@@ -46,4 +45,3 @@ def get_weather_forecast(latitude: float, longitude: float) -> list:
 if __name__ == "__main__":
     mcp.run()
 
-#V3 end

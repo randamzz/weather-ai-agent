@@ -1,15 +1,25 @@
-                    USER
-                     ↓
-                    LLM
-                     ↓
-             ┌───────┴────────┐
-             ↓                ↓
-       Question météo    Autre question
-             ↓                ↓
-        Weather Tools       LLM
-             ↓                ↓
-        OpenWeather       Réponse
-             ↓
-            LLM
-             ↓
-          Réponse
+
+                       User
+                         │
+                         ▼
+                    ┌─────────┐
+                    │ Agent   │
+                    │ LLM     │
+                    └────┬────┘
+                         │
+                    MCP Client
+                         │
+                  ───────┼───────
+                         │
+                    MCP Protocol
+                         │
+                  ┌──────▼──────┐
+                  │ MCP Server  │ 
+                  │             │
+                  │ Weather     │
+                  │ Location    │
+                  └──────┬──────┘
+                         │
+             ┌───────────┴──────────┐
+             ▼                      ▼
+       OpenWeather                IPInfo

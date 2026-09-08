@@ -1,4 +1,4 @@
-#v3.1 start (test comm ente server et client)
+#test communication ente server et client
 # import anyio
 
 # from mcp import Client, StdioServerParameters
@@ -35,9 +35,8 @@
 # if __name__ == "__main__":
 #     anyio.run(main)
 
-#v3.1 end
+#end test
 
-#V3 start
 import anyio
 
 from mcp import Client, StdioServerParameters
@@ -105,5 +104,4 @@ async def call_tool(client, tool_name, arguments):
 
     return result
 
-#V3 end
 

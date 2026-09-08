@@ -1,4 +1,3 @@
-#V2 start
 from ollama import chat
 
 
@@ -14,4 +13,3 @@ def ask_llm(messages, tools=None):
     )
 
     return response.message
-#V2 end

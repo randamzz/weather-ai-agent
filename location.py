@@ -1,4 +1,3 @@
-#V2 start
 import requests
 
 
@@ -14,4 +13,3 @@ def get_location():
         "latitude": float(data["loc"].split(",")[0]),
         "longitude": float(data["loc"].split(",")[1])
     }
-#V2 end
