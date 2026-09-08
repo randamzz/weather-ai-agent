@@ -1,4 +1,3 @@
-#V2 start
 import os
 import requests
 from dotenv import load_dotenv
@@ -118,4 +117,3 @@ def summarize_tomorrow(forecasts):
         "max": max(temperatures),
         "description": descriptions[len(descriptions) // 2]
     }
-#V2 end
