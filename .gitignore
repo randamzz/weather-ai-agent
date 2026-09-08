@@ -5,5 +5,5 @@ __pycache__/
 .env
 .env.*
 .vscode/
-.idea/
+.idea.txt
 "@ | Set-Content ".gitignore"
