@@ -1,6 +1,6 @@
 from llm import ask_llm
 from mcp_layer.mcp_client import call_tool
-
+import json
 
 class WeatherAgent:
 
@@ -68,3 +68,33 @@ Règles :
                     "tool_name": tool_name,
                     "content": str(result)
                 })
+
+    async def get_weather_context(self): #pour fournir des informations météo à un autre agent
+
+        result = await call_tool(
+            self.client,
+            "get_user_location",
+            {}
+        )
+
+        location = json.loads(
+            result.content[0].text
+        )
+
+        forecast_result = await call_tool(
+            self.client,
+            "get_weather_forecast",
+            {
+                "latitude": location["latitude"],
+                "longitude": location["longitude"]
+            }
+        )
+
+        forecast = json.loads(
+            forecast_result.content[0].text
+        )
+
+        return {
+            "location": location,
+            "forecast": forecast
+        }

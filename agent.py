@@ -2,6 +2,7 @@ import anyio
 
 from agents.weather_agent import WeatherAgent
 from agents.orchestrator import Orchestrator
+from agents.recommendation_agent import RecommendationAgent
 
 from mcp_layer.mcp_client import (
     create_client,
@@ -28,10 +29,11 @@ async def main():
         client=client,
         tools=tools
     )
-
+    recommendation_agent = RecommendationAgent()
     # Création de l'Orchestrator
     orchestrator = Orchestrator(
-        weather_agent=weather_agent
+        weather_agent=weather_agent,
+        recommendation_agent=recommendation_agent
     )
 
     try:
