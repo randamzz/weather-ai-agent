@@ -62,11 +62,6 @@ Ne donne aucune explication.
         route = decision["route"]
         needs_weather = decision["needs_weather"]
 
-        print(
-            f"\n🧠 Orchestrator → "
-            f"route={route}, "
-            f"needs_weather={needs_weather}"
-        )
 
         if route == "weather":
 
@@ -78,10 +73,6 @@ Ne donne aucune explication.
 
             if needs_weather:
 
-                print(
-                    "\n🤝 Orchestrator → "
-                    "WeatherAgent"
-                )
 
                 await self.weather_agent.update_context(
                     context
