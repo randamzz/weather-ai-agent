@@ -1,25 +1,17 @@
-
-                       User
-                         │
-                         ▼
-                    ┌─────────┐
-                    │ Agent   │
-                    │ LLM     │
-                    └────┬────┘
-                         │
-                    MCP Client
-                         │
-                  ───────┼───────
-                         │
-                    MCP Protocol
-                         │
-                  ┌──────▼──────┐
-                  │ MCP Server  │ 
-                  │             │
-                  │ Weather     │
-                  │ Location    │
-                  └──────┬──────┘
-                         │
-             ┌───────────┴──────────┐
-             ▼                      ▼
-       OpenWeather                IPInfo
+                         USER
+                           │
+                           ▼
+                    ORCHESTRATOR
+                           │
+             ┌─────────────┼─────────────┐
+             ▼             ▼             ▼
+       WEATHER AGENT   LOCATION AGENT   RECOMMENDATION
+             │             │             │
+             ▼             ▼             ▼
+        MCP Client     MCP Client     MCP Client
+             │             │             │
+             ▼             ▼             ▼
+        MCP Server     MCP Server     MCP Server
+             │             │             │
+             ▼             ▼             ▼
+          Tools          Tools          Tools

@@ -1,8 +1,8 @@
 
 from mcp.server.mcpserver import MCPServer
 
-from location import get_location
-from weather import (
+from tools.location import get_location
+from tools.weather import (
     get_current_weather,
     get_forecast
 )

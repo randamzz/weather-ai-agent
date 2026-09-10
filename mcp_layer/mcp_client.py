@@ -1,52 +1,18 @@
-#test communication ente server et client
-# import anyio
-
-# from mcp import Client, StdioServerParameters
-
-
-# server = StdioServerParameters(
-#     command="python",
-#     args=["mcp_server.py"]
-# )
-
-
-# async def main():
-
-#     async with Client(server) as client:
-
-#         print("\n✅ Connected to MCP Server\n")
-
-#         result = await client.list_tools()
-
-#         print("🛠️ Available tools:")
-
-#         for tool in result.tools:
-#             print(f"- {tool.name}")
-
-#         result = await client.call_tool(
-#             "get_user_location",
-#             {}
-#         )
-
-#         print("\n📍 Tool result:")
-#         print(result)
-
-
-# if __name__ == "__main__":
-#     anyio.run(main)
-
-#end test
-
 import anyio
+import sys
+from pathlib import Path
 
 from mcp import Client, StdioServerParameters
 
 
-server = StdioServerParameters(
-    command="python",
-    args=["mcp_server.py"]
-)
+# Racine du projet weather-ai-agent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+server = StdioServerParameters(
+    command=sys.executable,
+    args=["-m", "mcp_layer.mcp_server"],
+    cwd=str(PROJECT_ROOT),
+)
 
 async def create_client():
     """
