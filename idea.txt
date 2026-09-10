@@ -1,17 +1,17 @@
-                         USER
+                         User
                            │
                            ▼
-                    ORCHESTRATOR
+                    Orchestrator
                            │
              ┌─────────────┼─────────────┐
              ▼             ▼             ▼
-       WEATHER AGENT   LOCATION AGENT   RECOMMENDATION
-             │             │             │
-             ▼             ▼             ▼
-        MCP Client     MCP Client     MCP Client
-             │             │             │
-             ▼             ▼             ▼
-        MCP Server     MCP Server     MCP Server
-             │             │             │
-             ▼             ▼             ▼
-          Tools          Tools          Tools
+       WeatherAgent   Recommendation   General
+             │             │              │
+             ▼             ▼              ▼
+         MCP Client    LLM               LLM
+             │
+             ▼
+         MCP Server
+             │
+             ▼
+           Tools
