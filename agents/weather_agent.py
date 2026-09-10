@@ -69,32 +69,31 @@ Règles :
                     "content": str(result)
                 })
 
-    async def get_weather_context(self): #pour fournir des informations météo à un autre agent
+    async def update_context(self, context): #Récupère les données météo et les écrit dans AgentContext pour le contexte partagé
 
-        result = await call_tool(
-            self.client,
-            "get_user_location",
-            {}
-        )
+            result = await call_tool(
+                self.client,
+                "get_user_location",
+                {}
+            )
 
-        location = json.loads(
-            result.content[0].text
-        )
+            location = json.loads(
+                result.content[0].text
+            )
 
-        forecast_result = await call_tool(
-            self.client,
-            "get_weather_forecast",
-            {
-                "latitude": location["latitude"],
-                "longitude": location["longitude"]
-            }
-        )
+            context.location = location
 
-        forecast = json.loads(
-            forecast_result.content[0].text
-        )
+            forecast_result = await call_tool(
+                self.client,
+                "get_weather_forecast",
+                {
+                    "latitude": location["latitude"],
+                    "longitude": location["longitude"]
+                }
+            )
 
-        return {
-            "location": location,
-            "forecast": forecast
-        }
+            forecast = json.loads(
+                forecast_result.content[0].text
+            )
+
+            context.weather = forecast

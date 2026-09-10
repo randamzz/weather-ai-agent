@@ -1,6 +1,7 @@
 import json
 
 from llm import ask_llm
+from context.agent_context import AgentContext
 
 
 class Orchestrator:
@@ -33,57 +34,16 @@ Agents disponibles :
   pour les demandes de conseil ou de recommandation.
 
 - general :
-  pour les questions générales qui ne nécessitent
-  ni météo ni recommandation.
+  pour les questions générales.
 
 Tu dois également déterminer si des informations
-météorologiques sont nécessaires pour répondre
-correctement à la demande.
+météorologiques sont nécessaires.
 
-Réponds UNIQUEMENT avec un objet JSON valide
-respectant exactement ce format :
+Réponds UNIQUEMENT avec un objet JSON valide :
 
 {
     "route": "weather | recommendation | general",
     "needs_weather": true | false
-}
-
-Exemples :
-
-Question :
-"Quelle sera la température demain ?"
-
-Réponse :
-{
-    "route": "weather",
-    "needs_weather": true
-}
-
-Question :
-"Est-ce que je peux faire un picnic demain ?"
-
-Réponse :
-{
-    "route": "recommendation",
-    "needs_weather": true
-}
-
-Question :
-"Que me conseilles-tu pour une journée chaude ?"
-
-Réponse :
-{
-    "route": "recommendation",
-    "needs_weather": false
-}
-
-Question :
-"C'est quoi une API ?"
-
-Réponse :
-{
-    "route": "general",
-    "needs_weather": false
 }
 
 Ne donne aucune explication.
@@ -93,14 +53,20 @@ Ne donne aucune explication.
 
     async def run(self, user_message):
 
+        context = AgentContext(
+            user_request=user_message
+        )
+
         decision = self.decide(user_message)
 
         route = decision["route"]
         needs_weather = decision["needs_weather"]
 
-        # -------------------------
-        # WEATHER
-        # -------------------------
+        print(
+            f"\n🧠 Orchestrator → "
+            f"route={route}, "
+            f"needs_weather={needs_weather}"
+        )
 
         if route == "weather":
 
@@ -108,30 +74,24 @@ Ne donne aucune explication.
                 user_message
             )
 
-        # -------------------------
-        # RECOMMENDATION
-        # -------------------------
-
         if route == "recommendation":
-
-            context = "Aucune information météo nécessaire."
 
             if needs_weather:
 
-
-                context = (
-                    await self.weather_agent
-                    .get_weather_context()
+                print(
+                    "\n🤝 Orchestrator → "
+                    "WeatherAgent"
                 )
 
-            return await self.recommendation_agent.run(
-                user_message,
+                await self.weather_agent.update_context(
+                    context
+                )
+
+            await self.recommendation_agent.run(
                 context
             )
 
-        # -------------------------
-        # GENERAL
-        # -------------------------
+            return context.recommendation
 
         return self.answer_general(user_message)
 

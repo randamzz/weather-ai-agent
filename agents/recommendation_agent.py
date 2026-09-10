@@ -27,19 +27,23 @@ Règles :
             }
         ]
 
-    async def run(self, user_message, context):
+    async def run(self, context):
 
         prompt = f"""
-Question de l'utilisateur :
+    Question de l'utilisateur :
 
-{user_message}
+    {context.user_request}
 
-Informations disponibles :
+    Informations disponibles :
 
-{context}
+    Localisation :
+    {context.location}
 
-Donne une recommandation adaptée à la question.
-"""
+    Météo :
+    {context.weather}
+
+    Donne une recommandation adaptée à la question.
+    """
 
         messages = self.messages + [
             {
@@ -51,5 +55,7 @@ Donne une recommandation adaptée à la question.
         response = ask_llm(
             messages=messages
         )
+
+        context.recommendation = response.content
 
         return response.content
