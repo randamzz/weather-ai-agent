@@ -1,6 +1,7 @@
 import anyio
 
 from agents.weather_agent import WeatherAgent
+from agents.orchestrator import Orchestrator
 
 from mcp_layer.mcp_client import (
     create_client,
@@ -22,15 +23,15 @@ async def main():
     # Découverte des tools MCP
     tools = await get_tools(client)
 
-    print("🛠️ Available tools:")
-
-    for tool in tools:
-        print(f"- {tool['function']['name']}")
-
     # Création du Weather Agent
     weather_agent = WeatherAgent(
         client=client,
         tools=tools
+    )
+
+    # Création de l'Orchestrator
+    orchestrator = Orchestrator(
+        weather_agent=weather_agent
     )
 
     try:
@@ -42,11 +43,11 @@ async def main():
             if user_message.lower() == "exit":
                 break
 
-            response = await weather_agent.run(
+            response = await orchestrator.run(
                 user_message
             )
 
-            print(f"\n🤖 Weather Agent : {response}")
+            print(f"\n🤖 Agent : {response}")
 
     finally:
 
